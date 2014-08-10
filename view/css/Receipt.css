@@ -1,0 +1,14 @@
+#receiptTable td{
+    margin-bottom: 0px;
+    padding-left:15px;
+    font-size:small
+}
+#shippingMode td{
+    margin: 0px
+}
+#receiptTable th{
+    border-right: 1px solid #000 
+}
+#receipt_footer td{
+    font-size: 12px;
+}
