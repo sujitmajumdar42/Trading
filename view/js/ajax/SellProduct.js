@@ -88,8 +88,10 @@ $(document).ready(function() {
 
     $(document).on('click', '#remProd', function() {
         if (prod_table_size > 1) {
-            total_cost -= parseInt($(this).closest('tr').find('td:eq(7)').text(), 10);
-            $("#totalCost").text(total_cost);
+            total_cost -= parseInt($(this).closest('tr').find('td:eq(8)').text(), 10);
+            total_prod -= parseInt($(this).closest('tr').find('td:eq(3)').text(),10);
+            $("#totalCost").val(total_cost);
+            $("#totalProducts").val(total_prod);
             $(this).closest('tr').remove();
             prod_table_size--;
         }
@@ -99,7 +101,7 @@ $(document).ready(function() {
     $("#submitTrans").click(function() {
         var table = $("#prod_table_body");
         custAddress = $("#cust_address").val();
-        modeOfDispatch = $('select[id="modeOfDispatch"] option:selected').val();
+        modeOfDispatch = $('select[id="modeOfDispatch"] option:selected').html();
         transpName = $("#transpName").val();
         poNum = $("#poNum").val();
         remarks = $("#remarks").val();

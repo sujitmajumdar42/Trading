@@ -30,24 +30,31 @@ class RcptCreator {
         $index = 0;
 
         $objPHPExcel->getActiveSheet()->insertNewRowBefore($rowIndex, $totalRow);
-        
+
         $objPHPExcel->getActiveSheet()->SetCellValue('A9', $custAddress);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H8', date("m/d/Y",time()));
-        $objPHPExcel->getActiveSheet()->SetCellValue('H14', date("m/d/Y",time()));
+        $objPHPExcel->getActiveSheet()->SetCellValue('H8', date("m/d/Y", time()));
+        $objPHPExcel->getActiveSheet()->SetCellValue('H14', date("m/d/Y", time()));
+        $objPHPExcel->getActiveSheet()->SetCellValue('E10', $modeOfDispatch);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E12', $transpName);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E16', $poNum);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E18', $remarks);
 
         for ($iterator = 0; $iterator < $totalRow; $iterator++) {
             $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B' . $rowIndex . ':C' . $rowIndex);
-            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowIndex, $iterator+1);
-            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowIndex, $brands[$iterator]."  ".$productDescs[$iterator]);
+            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowIndex, $iterator + 1);
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowIndex, $brands[$iterator] . "  " . $productDescs[$iterator]);
             $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowIndex, $units[$iterator]);
             $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowIndex, $prodQtys[$iterator]);
             $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowIndex, $prodRates[$iterator]);
             $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowIndex, $taxes[$iterator]);
             $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowIndex, $prodCosts[$iterator]);
+            $rowIndex++;
         }
-
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowIndex, $totalCosts);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowIndex, $totalProds);
+        
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-        $objWriter->save('sujit.xlsx');
+        $objWriter->save('Receipts/'.AimsUtility::getID().'.xlsx');
     }
 
 }

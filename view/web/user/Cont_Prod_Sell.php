@@ -2,7 +2,8 @@
 <script src="../../js/ajax/ProductManagement_Insert.js"></script>
 <script src="../../js/ajax/SellProduct.js"></script>
 <ul data-role="listview" data-inset="true">
-    <li data-role="list-divider">Sell Product</li>
+   <li data-role="list-divider">Product Management</li>
+    <?php getProductNavs(); ?>
     <li>
         <table>
             <tr>

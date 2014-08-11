@@ -1,6 +1,9 @@
 $(document).ready(function() {
-    $(".navs").click(function(){
-       window.location.reload();
+    $(".navs").click(function(e){
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        var path = 'http://'+window.location.hostname+window.location.pathname+$(this).attr("data-url");
+        $(location).attr('href', path);
     });
     servType = "BrandManage";
     oprCode = "readAll";
