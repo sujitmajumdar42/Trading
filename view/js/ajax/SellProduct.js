@@ -104,23 +104,28 @@ $(document).ready(function() {
         poNum = $("#poNum").val();
         remarks = $("#remarks").val();
 
-        productNums = [];
+        brands = [];
         productDescs = [];
         prodQtys = [];
-        prodRates = [];
-        prodAmounts = [];
         units = [];
+        prodRates = [];
+        taxes = [];
+        prodCosts = [];
         servType = "makeReceipt";
         totalRow = $("#prod_table_body tr").length;
 
+        totalProds = $("#totalProducts").val();
+        totalCosts = $("#totalCost").val();
+
         table.find('tr').each(function(key, val) {
             var $tds = $(this).find('td');
-            productNums.push($tds.eq(0).text());
+            brands.push($tds.eq(1).text());
             productDescs.push($tds.eq(2).text());
             prodQtys.push($tds.eq(3).text());
+            units.push($tds.eq(4).text());
             prodRates.push($tds.eq(5).text());
-            prodAmounts.push($tds.eq(8).text());
-             
+            taxes.push($tds.eq(6).text());
+            prodCosts.push($tds.eq(8).text());
         });
 
         $.ajax({
@@ -132,12 +137,16 @@ $(document).ready(function() {
                 transpName: transpName,
                 poNum: poNum,
                 remarks: remarks,
-                productNums: productNums,
+                brands: brands,
                 productDescs: productDescs,
                 prodQtys: prodQtys,
+                units: units,
                 prodRates: prodRates,
-                prodAmounts: prodAmounts,
-                totalRow: totalRow
+                taxes: taxes,
+                prodCosts: prodCosts,
+                totalRow: totalRow,
+                totalProds: totalProds,
+                totalCosts: totalCosts
             },
             success: function(html) {
                 $("#billResponse").html(html);
