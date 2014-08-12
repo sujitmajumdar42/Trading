@@ -2,15 +2,7 @@
 
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">Brand Management</li>
-    <li>
-        <table>
-            <tr>
-                <td> <a href="index.php?cont=Cont_User_Home" data-role="button">Home</a></td>
-                <td> <a href="index.php?cont=Cont_Brand_Add" data-role="button">Add Brand</a></td>
-                <td> <a href="index.php?cont=Cont_Brand_Update" data-role="button">Update Brand</a></td>
-            </tr>
-        </table>
-    </li>
+    <?php getBrandNavs(); ?>
     <li>
 
         <form name="brand_management" action="./" data-ajax="false">

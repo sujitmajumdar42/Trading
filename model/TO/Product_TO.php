@@ -6,6 +6,9 @@ class ProductTO {
     public $BRAND_ID;
     public $PROD_NAME;
     public $PROD_AVAIL;
+    public $PROD_UNIT;
+    public $PRODS_PER_BOX;        
+    
     public function get_PROD_ID() {
         return $this->PROD_ID;
     }
@@ -20,6 +23,14 @@ class ProductTO {
 
     public function get_PROD_AVAIL() {
         return $this->PROD_AVAIL;
+    }
+
+    public function get_PROD_UNIT() {
+        return $this->PROD_UNIT;
+    }
+
+    public function get_PRODS_PER_BOX() {
+        return $this->PRODS_PER_BOX;
     }
 
     public function set_PROD_ID($PROD_ID) {
@@ -38,7 +49,11 @@ class ProductTO {
         $this->PROD_AVAIL = $PROD_AVAIL;
     }
 
+    public function set_PROD_UNIT($PROD_UNIT) {
+        $this->PROD_UNIT = $PROD_UNIT;
+    }
 
-     
-
+    public function set_PRODS_PER_BOX($PRODS_PER_BOX) {
+        $this->PRODS_PER_BOX = $PRODS_PER_BOX;
+    }
 }

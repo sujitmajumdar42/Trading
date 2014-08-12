@@ -54,21 +54,34 @@ class ProductServlet {
     private function insertProduct() {
         $prodName = $_POST['prodName'];
         $brandID = $_POST['brandID'];
+        $prodUnit = $_POST['prodUnit'];
+        $prodPerBox = $_POST['prodPerBox'];
         $prodID = AimsUtility::getID();
         $isProdExist = $this->prodBO->checkProduct($prodName, $brandID);
         if ($isProdExist == null) {
             $this->prodTO->set_BRAND_ID($brandID);
             $this->prodTO->set_PROD_ID($prodID);
             $this->prodTO->set_PROD_NAME($prodName);
+            $this->prodTO->set_PROD_UNIT($prodUnit);
+            $this->prodTO->set_PRODS_PER_BOX($prodPerBox);
             $this->prodTO->set_PROD_AVAIL(0);
             $this->prodBO->create($this->prodTO);
             $prodAccountTO = new ProdAccountTO();
             $prodAccountTO->set_PROD_ID($prodID);
+            $prodAccountTO->set_PROD_UNIT($prodUnit);
             $prodAccountTO->set_DISCOUNT(0);
             $prodAccountTO->set_VAT(0);
             $prodAccountTO->set_BASIC_COST(0);
             $prodAccountBO = new ProductAccountBO();
-            $prodAccountBO->create($prodAccountTO);
+            if($prodUnit == "box"){
+                $prodAccountBO->create($prodAccountTO);
+                $prodAccountTO->set_PROD_UNIT("pac");
+                $prodAccountBO->create($prodAccountTO);
+            } else{
+                $prodAccountBO->create($prodAccountTO);
+            }
+            
+            echo $prodName." is added.";
         } else {
             echo "Product Already Exist";
         }

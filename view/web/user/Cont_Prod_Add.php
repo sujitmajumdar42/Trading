@@ -23,8 +23,22 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="prodName">Name : </label></td>
+                    <td>Name : </td>
                     <td><input type="text" id="prodName"></td>
+                </tr>
+                <tr>
+                    <td>Select Unit : </td>
+                    <td>
+                        <select id="prodUnitType">
+                            <option value="Select">Select</option>
+                            <option value="pac">Packet</option>
+                            <option value="box">Box</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="prodPerBoxRow" style="display: none">
+                    <td>Products Per Box : </td>
+                    <td><input type="text" id="prodPerBox"></td>
                 </tr>
                 <tr>
                     <td colspan="2" id="addProdResp"></td>

@@ -3,7 +3,7 @@
 class ProductDAO {
 
     const CLASS_NAME = "ProductTO";
-    const CREATE_QUERY = "INSERT INTO `trading`.`product` (`PROD_ID`, `BRAND_ID`, `PROD_NAME`, `PROD_AVAIL`) VALUES (?, ?, ?, ?)";
+    const CREATE_QUERY = "INSERT INTO `trading`.`product` (`PROD_ID`, `BRAND_ID`, `PROD_NAME`,`PROD_UNIT`,`PROD_IN_BOX`, `PROD_AVAIL`) VALUES (?, ?, ?, ?, ?, ?)";
     const CHECK_QUERY = "SELECT * FROM `trading`.`product` WHERE `product`.`PROD_NAME` = ? AND `product`.`BRAND_ID` = ?";
     const READ_QUERY = "SELECT * FROM `trading`.`product` WHERE `PROD_ID`=?";
     const READ_ALL_QUERY = "SELECT * FROM `trading_db`.`product`";
@@ -15,8 +15,11 @@ class ProductDAO {
         $params = array($productTO->get_PROD_ID(),
             $productTO->get_BRAND_ID(),
             $productTO->get_PROD_NAME(),
+            $productTO->get_PROD_UNIT(),
+            $productTO->get_PRODS_PER_BOX(),
             $productTO->get_PROD_AVAIL()
         );
+        
         DbConfig::queryForObject(self::CREATE_QUERY, $params);
     }
 

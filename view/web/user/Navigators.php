@@ -1,7 +1,7 @@
 <?php
 
 function getProductNavs() {
-?>
+    ?>
     <li>
         <table>
             <tr>
@@ -13,11 +13,21 @@ function getProductNavs() {
         </table>
     </li>
     <?php
-
 }
 
 function getBrandNavs() {
-    
+    ?> 
+
+    <li>
+        <table>
+            <tr>
+                <td> <a href="index.php?cont=Cont_User_Home" data-role="button" class="navs" data-url="?cont=Cont_User_Home">Home</a></td>
+                <td> <a href="index.php?cont=Cont_Brand_Add" data-role="button" class="navs" data-url="?cont=Cont_User_Add">Add Brand</a></td>
+                <td> <a href="index.php?cont=Cont_Brand_Update" data-role="button" class="navs" data-url="?cont=Cont_User_Update">Update Brand</a></td>
+            </tr>
+        </table>
+    </li>
+    <?php
 }
 
 function getProdAccountNavs() {
