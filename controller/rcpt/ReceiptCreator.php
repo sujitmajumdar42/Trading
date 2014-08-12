@@ -54,7 +54,11 @@ class RcptCreator {
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowIndex, $totalProds);
         
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-        $objWriter->save('Receipts/'.AimsUtility::getID().'.xlsx');
+        $rcptID = AimsUtility::getID();
+        $objWriter->save('Receipts/'.$rcptID.'.xlsx');
+        echo $rcptID;
+        $rcptDAO = new RcptDetail();
+        $rcptDAO->create($rcptID, $totalCosts);
     }
 
 }

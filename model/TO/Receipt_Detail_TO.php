@@ -1,6 +1,6 @@
 <?php
 
-class ReceiptDetail {
+class ReceiptDetailTO {
 
     public $RCP_ID;
     public $RCP_DATE;

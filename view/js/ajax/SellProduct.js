@@ -151,8 +151,16 @@ $(document).ready(function() {
                 totalCosts: totalCosts
             },
             success: function(html) {
-                $("#billResponse").html(html);
+                $("#transaction_resp").show();
+                $("#transaction_resp").html("Receipt ID : "+html);
+                $("[class=transaction]").show();
             }
         });
+    });
+    $("#totalPaid").change(function(){
+        amountPaid = parseFloat($("#totalPaid").val());
+        totalAmount = parseFloat($("#totalCost").val());
+        totalReturn = amountPaid-totalAmount;
+        $("#returnAmount").val(totalReturn);
     });
 });

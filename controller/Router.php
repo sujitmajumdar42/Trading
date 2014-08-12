@@ -8,6 +8,7 @@ require_once '../config/DbConfig.php';
 require_once '../controller/rcpt/ReceiptCreator.php';
 require_once '../controller/rcpt/PHPExcel.php';
 require_once '../controller/rcpt/PHPExcel/IOFactory.php';
+require_once '../model/DAO/Rcpt_Detail_DAO.php';
 class Router {
 
     public function route() {

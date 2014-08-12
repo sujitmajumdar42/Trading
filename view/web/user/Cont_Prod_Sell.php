@@ -4,13 +4,20 @@
 <ul data-role="listview" data-inset="true">
    <li data-role="list-divider">Product Management</li>
     <?php getProductNavs(); ?>
-    <li>
+   <li>
+       <span id="transaction_resp" style="color: indianred;display: none"></span>
+   </li> 
+   <li>
         <table>
             <tr>
                 <td>Total Product</td>
                 <td><input type="text" id="totalProducts" value="0" readonly=""/></td>
                 <td>Total Cost</td>
                 <td><input type="text" id="totalCost" value="0" readonly="" /></td>
+                <td class="transaction" style="display: none" id="amountPaid">Paid : </td>
+                <td class="transaction" style="display: none"><input type="text" id="totalPaid" value="0"/></td>
+                <td class="transaction" style="display: none" id="amountReturn">Return : </td>
+                <td class="transaction" style="display: none" ><input type="text" id="returnAmount" value="0" readonly=""></td>
             </tr>
             <tr>
                 <td colspan="2" id="billResponse"></td>
