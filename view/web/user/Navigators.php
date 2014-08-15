@@ -9,6 +9,7 @@ function getProductNavs() {
                 <td> <a href="index.php?cont=Cont_Prod_Add" data-role="button" class="navs" data-url="?cont=Cont_Prod_Add">Add Product</a></td>
                 <td> <a href="index.php?cont=Cont_Prod_Update" data-role="button" class="navs" data-url="?cont=Cont_Prod_Update">Update/Remove Product</a></td>
                 <td> <a href="index.php?cont=Cont_Prod_Sell" data-role="button" class="navs" data-url="?cont=Cont_Prod_Sell">Sell Product</a></td>
+                <td> <a href="index.php?cont=Cont_Prod_Account" data-role="button" class="navs" data-url="?cont=Cont_Prod_Account">Manage Cost</a></td>
             </tr>
         </table>
     </li>

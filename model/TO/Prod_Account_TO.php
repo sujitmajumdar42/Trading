@@ -4,10 +4,11 @@ class ProdAccountTO {
 
     public $PROD_ID;
     public $PROD_UNIT;
-    public $BASIC_COST;
+    public $PROD_BOX_COST;
+    public $PROD_PAC_COST;
     public $VAT;
     public $DISCOUNT;
-
+    
     public function get_PROD_ID() {
         return $this->PROD_ID;
     }
@@ -16,8 +17,12 @@ class ProdAccountTO {
         return $this->PROD_UNIT;
     }
 
-    public function get_BASIC_COST() {
-        return $this->BASIC_COST;
+    public function get_PROD_BOX_COST() {
+        return $this->PROD_BOX_COST;
+    }
+
+    public function get_PROD_PAC_COST() {
+        return $this->PROD_PAC_COST;
     }
 
     public function get_VAT() {
@@ -36,8 +41,12 @@ class ProdAccountTO {
         $this->PROD_UNIT = $PROD_UNIT;
     }
 
-    public function set_BASIC_COST($BASIC_COST) {
-        $this->BASIC_COST = $BASIC_COST;
+    public function set_PROD_BOX_COST($PROD_BOX_COST) {
+        $this->PROD_BOX_COST = $PROD_BOX_COST;
+    }
+
+    public function set_PROD_PAC_COST($PROD_PAC_COST) {
+        $this->PROD_PAC_COST = $PROD_PAC_COST;
     }
 
     public function set_VAT($VAT) {
@@ -47,5 +56,6 @@ class ProdAccountTO {
     public function set_DISCOUNT($DISCOUNT) {
         $this->DISCOUNT = $DISCOUNT;
     }
+
 
 }

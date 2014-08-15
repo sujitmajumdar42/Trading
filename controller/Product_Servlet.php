@@ -45,7 +45,7 @@ class ProductServlet {
             case "readCost":
                 $this->readCost();
                 break;
-            case "UpdateCost":
+            case "updateCost":
                 $this->updateCost();
                 break;
         }
@@ -66,20 +66,21 @@ class ProductServlet {
             $this->prodTO->set_PRODS_PER_BOX($prodPerBox);
             $this->prodTO->set_PROD_AVAIL(0);
             $this->prodBO->create($this->prodTO);
+            
             $prodAccountTO = new ProdAccountTO();
             $prodAccountTO->set_PROD_ID($prodID);
             $prodAccountTO->set_PROD_UNIT($prodUnit);
+            if($prodUnit=="pac"){
+                 $prodAccountTO->set_PROD_BOX_COST(-1);
+            }else{
+                $prodAccountTO->set_PROD_BOX_COST(0);
+            }
+            $prodAccountTO->set_PROD_PAC_COST(0);
             $prodAccountTO->set_DISCOUNT(0);
             $prodAccountTO->set_VAT(0);
-            $prodAccountTO->set_BASIC_COST(0);
+           
             $prodAccountBO = new ProductAccountBO();
-            if($prodUnit == "box"){
-                $prodAccountBO->create($prodAccountTO);
-                $prodAccountTO->set_PROD_UNIT("pac");
-                $prodAccountBO->create($prodAccountTO);
-            } else{
-                $prodAccountBO->create($prodAccountTO);
-            }
+            $prodAccountBO->create($prodAccountTO);
             
             echo $prodName." is added.";
         } else {
@@ -147,19 +148,20 @@ class ProductServlet {
 
     private function readCost() {
         $prodID = $_POST['prodID'];
-        $unit = $_POST['unit'];
-        echo json_encode($this->prodAccountBO->read($prodID,$unit));
+        echo json_encode($this->prodAccountBO->read($prodID));
     }
 
     private function updateCost() {
         $prodID = $_POST['prodID'];
-        $basicCost = $_POST['basicCost'];
+        $costPerPiece = $_POST['costPerPiece'];
+        $costPerBox = $_POST['costPerBox'];
         $vat = $_POST['vat'];
-        $discount = $_POST['discount'];
         $this->prodAccountTO->set_PROD_ID($prodID);
-        $this->prodAccountTO->set_BASIC_COST($basicCost);
+        $this->prodAccountTO->set_PROD_PAC_COST($costPerPiece);
+        $this->prodAccountTO->set_PROD_BOX_COST($costPerBox);
         $this->prodAccountTO->set_VAT($vat);
-        $this->prodAccountTO->set_DISCOUNT($discount);
+        $this->prodAccountTO->set_DISCOUNT(0);
+        var_dump($this->prodAccountTO);
         $this->prodAccountBO->update($this->prodAccountTO);
     }
 

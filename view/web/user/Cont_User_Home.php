@@ -31,4 +31,5 @@ if (isset($_SESSION['uname'])) {
     <li><a href="index.php?cont=Cont_Prod_Add">Add New Product</a></li>
     <li><a href="index.php?cont=Cont_Prod_Update">Update New Product</a></li>
     <li><a href="index.php?cont=Cont_Prod_Sell">Sell Product</a></li>
+    <li><a href="index.php?cont=Cont_Prod_Account">Product Cost</a></li>
 </ul>
