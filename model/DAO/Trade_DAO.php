@@ -3,7 +3,7 @@
 class TradeDAO {
     
     const CLASS_NAME = "TradeTO";
-    const CREATE_QUERY = "INSERT INTO `trading_db`.`trade` (`TRD_ID`,`TRD_DATE`,`TRD_TYPE`,`USR_USERNAME`) VALUES (?, ?, ?, ?)";
+    const CREATE_QUERY = "INSERT INTO `trading`.`trade` (`TRD_ID`,`TRD_DATE`,`TRD_TYPE`,`USER_USERNAME`) VALUES (?, ?, ?, ?)";
     const READ_QUERY = "SELECT * FROM `trading_db`.`trade` WHERE `TRD_ID`=?";
     const READ_ALL_QUERY = "SELECT * FROM `trading_db`.`trade`";
     const UPDATE_QUERY = "UPDATE `trading_db`.`trade` SET `TRD_DATE` = ?, `TRD_TYPE` = ?  WHERE `trade`.`TRD_ID` = ?";

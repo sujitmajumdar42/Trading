@@ -3,6 +3,7 @@
 require_once './User_Servlet.php';
 require_once './Brand_Servlet.php';
 require_once './Product_Servlet.php';
+require_once './Trade_Servlet.php';
 require_once './../model/util/AIMSUtil.php';
 require_once '../config/DbConfig.php';
 require_once '../controller/rcpt/ReceiptCreator.php';
@@ -40,7 +41,9 @@ class Router {
             case 'makeReceipt':
                 new RcptCreator();
                 break;
-                
+            case 'TradeManage':
+                new TradeServlet();
+                break;
         }
     }
     

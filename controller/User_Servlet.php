@@ -32,7 +32,7 @@ class UserServlet{
          }
          else{
              session_start();
-             $_SESSION['uname']="HELLO";
+             $_SESSION['uname']="Amit";
          }
      }
 }
