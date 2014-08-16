@@ -2,8 +2,10 @@
 
 class ProductBO{
     private $productDAO = null;
+    private $prodRepoDAO = null;
     function __construct() {
         $this->productDAO = new ProductDAO();
+        $this->prodRepoDAO = new ProdRepoDAO(); 
     }
     function create($productTO){
         $this->productDAO->create($productTO);
@@ -26,5 +28,13 @@ class ProductBO{
     
     function readAllByFK($brandID){
         return $this->productDAO->readAllByFK($brandID);
+    }
+    
+    function addToRepo($prodRepoTO){
+        $this->prodRepoDAO->create($prodRepoTO);
+    }
+    
+    function updateRepo($prodRepoTO){
+        $this->prodRepoDAO->update($prodRepoTO);
     }
 }

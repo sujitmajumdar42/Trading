@@ -4,8 +4,10 @@ require_once '../model/BO/Product_BO.php';
 require_once '../model/DAO/Product_DAO.php';
 require_once '../model/TO/Product_TO.php';
 require_once '../model/TO/Prod_Account_TO.php';
+require_once '../model/TO/Prod_Repo_TO.php';
 require_once '../model/BO/ProductAccount_BO.php';
 require_once '../model/DAO/Product_Account_DAO.php';
+require_once '../model/DAO/Prod_Repo_DAO.php';
 
 class ProductServlet {
 
@@ -64,9 +66,9 @@ class ProductServlet {
             $this->prodTO->set_PROD_NAME($prodName);
             $this->prodTO->set_PROD_UNIT($prodUnit);
             $this->prodTO->set_PRODS_PER_BOX($prodPerBox);
-            $this->prodTO->set_PROD_AVAIL(0);
             $this->prodBO->create($this->prodTO);
             
+            //Add to account
             $prodAccountTO = new ProdAccountTO();
             $prodAccountTO->set_PROD_ID($prodID);
             $prodAccountTO->set_PROD_UNIT($prodUnit);
@@ -81,6 +83,13 @@ class ProductServlet {
            
             $prodAccountBO = new ProductAccountBO();
             $prodAccountBO->create($prodAccountTO);
+            
+            //Add to Repo
+            $prodRepoTO = new ProdRepoTO();
+            $prodRepoTO->set_PROD_ID($prodID);
+            $prodRepoTO->set_PROD_UNIT($prodUnit);
+            $prodRepoTO->set_PROD_AVAIL(0);
+            $this->prodBO->addToRepo($prodRepoTO);
             
             echo $prodName." is added.";
         } else {

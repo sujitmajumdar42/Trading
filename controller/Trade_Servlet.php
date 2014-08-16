@@ -1,12 +1,14 @@
 <?php
 require_once '../model/BO/Trade_BO.php';
 require_once '../model/BO/Product_BO.php';
+require_once '../model/DAO/Prod_Repo_DAO.php';
 require_once '../model/DAO/Trade_DAO.php';
 require_once '../model/DAO/Trade_Detail_DAO.php';
 require_once '../model/DAO/Product_DAO.php';
 require_once '../model/TO/Trade_TO.php';
 require_once '../model/TO/Trade_Detail_TO.php';
 require_once '../model/TO/Product_TO.php';
+require_once '../model/TO/Prod_Repo_TO.php';
 
 class TradeServlet {
 
@@ -16,9 +18,11 @@ class TradeServlet {
     private $tradeDAO;
     private $tradeDetailDAO;
     private $prodDAO;
+    private $prodRepoDAO;
     private $tradeTO;
     private $tradeDetailTO;
     private $productTO;
+    private $prodRepoTO;
 
     public function __construct() {
         $this->tradeBO = new TradedBO();
@@ -29,7 +33,8 @@ class TradeServlet {
         $this->tradeTO = new TradeTO();
         $this->tradeDetailTO = new TradeDetailTO();
         $this->productTO = new ProductTO();
-        
+        $this->prodRepoDAO = new ProdRepoDAO();
+        $this->prodRepoTO = new ProdRepoTO();
         $this->manageTrade();
     }
 
@@ -68,14 +73,12 @@ class TradeServlet {
             $this->tradeBO->createTradeDetail($this->tradeDetailTO);
             
             $this->productTO = $this->prodBO->read($prodIDs[$index]);
-           /* if($prodUnits[$index]=="box"){
-                $this->productTO->set_PROD_AVAIL();
-            }*/
-            
+            //Update Repo
+            $this->prodRepoTO->set_PROD_ID($prodIDs[$index]);
+            $this->prodRepoTO->set_PROD_UNIT($prodUnits[$index]);
+            $this->prodRepoTO->set_PROD_AVAIL($prodQty[$index]);
+            $this->prodBO->updateRepo($this->prodRepoTO);
         }
-        
-            
-        
     }
 
 }
