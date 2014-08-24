@@ -50,6 +50,11 @@ class ProductServlet {
             case "updateCost":
                 $this->updateCost();
                 break;
+            case "checkAvail":
+                $this->checkAvail();
+                break;
+            case "updateRepo":
+                break;
         }
     }
 
@@ -67,33 +72,37 @@ class ProductServlet {
             $this->prodTO->set_PROD_UNIT($prodUnit);
             $this->prodTO->set_PRODS_PER_BOX($prodPerBox);
             $this->prodBO->create($this->prodTO);
-            
+
             //Add to account
             $prodAccountTO = new ProdAccountTO();
             $prodAccountTO->set_PROD_ID($prodID);
             $prodAccountTO->set_PROD_UNIT($prodUnit);
-            if($prodUnit=="pac"){
-                 $prodAccountTO->set_PROD_BOX_COST(-1);
-            }else{
+            if ($prodUnit == "pac") {
+                $prodAccountTO->set_PROD_BOX_COST(-1);
+            } else {
                 $prodAccountTO->set_PROD_BOX_COST(0);
             }
             $prodAccountTO->set_PROD_PAC_COST(0);
             $prodAccountTO->set_DISCOUNT(0);
             $prodAccountTO->set_VAT(0);
-           
+
             $prodAccountBO = new ProductAccountBO();
             $prodAccountBO->create($prodAccountTO);
-            
+
             //Add to Repo
             $prodRepoTO = new ProdRepoTO();
             $prodRepoTO->set_PROD_ID($prodID);
             $prodRepoTO->set_PROD_UNIT($prodUnit);
             $prodRepoTO->set_PROD_AVAIL(0);
+            if ($prodUnit == "box") {
+                $this->prodBO->addToRepo($prodRepoTO);
+            }
+            $prodRepoTO->set_PROD_UNIT("pac");
             $this->prodBO->addToRepo($prodRepoTO);
-            
-            echo $prodName." is added.";
+
+            echo "INF_PR_01";
         } else {
-            echo "Product Already Exist";
+            echo "ERR_PR_04";
         }
     }
 
@@ -103,9 +112,9 @@ class ProductServlet {
         $quantity = $_POST['quantity'];
         $this->prodTO = $this->prodBO->read($prodID);
         $avail = $this->prodTO->get_PROD_AVAIL();
-        if($quantity>$avail){
-            echo "Sorry<br/>In Stock : ".$avail;
-        } else{
+        if ($quantity > $avail) {
+            echo "Sorry<br/>In Stock : " . $avail;
+        } else {
             echo "No Problem";
         }
     }
@@ -124,22 +133,27 @@ class ProductServlet {
         $brandID = $_POST['brandID'];
         $prodName = $_POST['prodName'];
         $prodAvail = $_POST['prodAvail'];
-        $isVrandExist = $this->prodBO->checkProduct($prodName, $brandID);
+        $isBrandExist = $this->prodBO->checkProduct($prodName, $brandID);
 
-        if ($isVrandExist == null) {
+        if ($isBrandExist == null) {
             $this->prodTO->set_PROD_ID($prodID);
             $this->prodTO->set_BRAND_ID($brandID);
             $this->prodTO->set_PROD_NAME($prodName);
-            $this->prodTO->set_PROD_AVAIL($prodAvail);
             $this->prodBO->update($this->prodTO);
+            echo "INF_PR_02";
         } else {
-            echo "Brand Name already Exists.";
+            echo "ERR_PR_04";
         }
     }
 
     private function delete() {
         $prodID = $_POST['prodID'];
-        $this->prodBO->delete($prodID);
+        $respCode = $this->prodBO->delete($prodID);
+        if ($respCode == 1) {
+            echo "ERR_PR_07";
+        } else {
+            echo "INF_PR_03";
+        }
     }
 
     private function readByFK() {
@@ -148,16 +162,17 @@ class ProductServlet {
         //var_dump($this->prodBO->readAllByFK($brandID));
         $productList = $this->prodBO->readAllByFK($brandID);
         if ($productList == null) {
-            $json =  "ERR102";
+            $json = "ERR_PR_01";
         } else {
             $json = $productList;
         }
-         echo json_encode($json); 
+        echo json_encode($json);
     }
 
     private function readCost() {
         $prodID = $_POST['prodID'];
-        echo json_encode($this->prodAccountBO->read($prodID));
+        $prodUnit = $_POST['unit'];
+        echo json_encode($this->prodAccountBO->read($prodID, $prodUnit));
     }
 
     private function updateCost() {
@@ -172,6 +187,31 @@ class ProductServlet {
         $this->prodAccountTO->set_DISCOUNT(0);
         var_dump($this->prodAccountTO);
         $this->prodAccountBO->update($this->prodAccountTO);
+    }
+
+    private function checkAvail() {
+        $prodID = $_POST['prodID'];
+        //$prodUnit = $_POST['prodUnit'];
+        $isBox = $this->prodBO->checkAvail($prodID, "box");
+        if (empty($isBox) != 1) {
+            $prodAvailBox = $this->prodBO->checkAvail($prodID, "box")->get_PROD_AVAIL();
+            $prodAvailPac = $this->prodBO->checkAvail($prodID, "pac")->get_PROD_AVAIL();
+            echo $prodAvailBox . "e" . $prodAvailPac;
+        } else {
+            $prodAvailPac = $this->prodBO->checkAvail($prodID, "pac")->get_PROD_AVAIL();
+            echo $prodAvailPac;
+        }
+    }
+
+    private function updateRepo() {
+        $prodID = $_POST['prodID'];
+        $prodUnit = $_POST['prodUnit'];
+        $prodAvail = $_POST['prodAvail'];
+        $prodRepoTO = new ProdRepoTO();
+        $prodRepoTO->set_PROD_ID($prodID);
+        $prodRepoTO->set_PROD_UNIT($prodUnit);
+        $prodRepoTO->set_PROD_AVAIL($prodAvail);
+        $this->prodBO->updateRepo($prodRepoTO);
     }
 
 }

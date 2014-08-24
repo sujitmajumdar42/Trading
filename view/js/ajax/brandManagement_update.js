@@ -25,22 +25,23 @@ $(document).ready(function() {
     $("#update").click(function() {
         updatedName = $("#updateBrand").val();
         oprCode = "update";
-        if (updatedName == brandName) {
-            $("#updateResp").html("No Change");
+        if (isEmpty(updatedName)) {
+            prepareMessage("ERR_BR_01");
+        } else if (brandName == updatedName) {
+            prepareMessage("ERR_BR_04");
         } else {
             $.ajax({
                 type: "POST",
                 url: "../../../controller/Router.php",
                 data: "servType=" + servType + "&oprCode=" + oprCode + "&brandID=" + brandID + "&brandName=" + updatedName,
                 success: function(html) {
-                    if (html == "") {
-                        $("#updateResp").html("Updated");
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                    }
-                    else
-                        $("#updateResp").html(html);
+                    prepareMessage(html);
+                    setTimeout(function() {
+                    }, 4000);
+                    prepareMessage("MSG_COM_01");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 4000);
                 }
             });
         }
@@ -48,20 +49,21 @@ $(document).ready(function() {
 
     $("#remove").click(function() {
         oprCode = "delete";
-        $.ajax({
-            type: "POST",
-            url: "../../../controller/Router.php",
-            data: "servType=" + servType + "&oprCode=" + oprCode + "&brandID=" + brandID,
-            success: function(html) {
-                if (html == "") {
-                    $("#updateResp").html("Deleted");
+        if (isEmpty($("#updateBrand").val())) {
+            prepareMessage("ERR_BR_01");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "../../../controller/Router.php",
+                data: "servType=" + servType + "&oprCode=" + oprCode + "&brandID=" + brandID,
+                success: function(html) {
+                    prepareMessage(html);
+                    prepareMessage("MSG_COM_01");
                     setTimeout(function() {
                         location.reload();
-                    }, 2000);
-                } else
-                    $("#updateResp").html(html);
-            }
-        });
+                    }, 4000);
+                }
+            });
+        }
     });
-
 });

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>myui</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#button").mouseenter(function() {
+                    $(".subButton1").animate({'margin-top': -35}, 200, function() {
+                        // $(".subButton2").slideToggle();
+                        $(".subButton2").show();
+                        $(".subButtonImg").stop().animate({'margin-right':-50},200,function(){
+                            $(".subButton2").stop().animate({'margin-top': 10}, 200);
+                        });
+                        
+                    });
+
+                });
+                $("#button").mouseleave(function() {
+                    $(".subButton2").animate({'margin-top': -35}, 200, function() {
+                        // $(".subButton2").slideToggle();
+                        $(".subButton1").show();
+                        $(".subButton2").hide();
+                        $(".subButtonImg").stop().animate({'margin-right':0},200,function(){
+                            $(".subButton1").stop().animate({'margin-top': 2}, 200);
+                        });
+                    });
+                });
+            });
+        </script>
+        <style type="text/css">
+            .button{
+                height: 30px;
+                width: 110px;
+                font-family: Segoe UI;
+                font-weight: lighter;
+                position: absolute;
+                text-align: center;
+                font-size: 18px;
+                border-radius: 5px;
+                cursor: pointer;
+                position: relative;
+                background: #2489ce;
+                padding: 10px;
+                overflow: hidden
+            }
+            .subButton2{
+                display: none;
+                //background: seagreen;
+                color: white;
+                margin-bottom:2px;
+                width: 60%;
+                float: left;
+            }
+            .subButton1{
+                color: white;
+                margin-bottom:2px;
+                width: 40%;
+                float:left
+            }
+            .subButtonImg{
+                width: 30%;
+                float:right;
+                color: white;
+            }
+        </style>
+    </head>
+    <body style="padding: 50px">
+        <div id="button" class="button">
+            <div class="subButton1">Login</div>
+            <div class="subButtonImg">-&RightArrow;</div>
+            <div class="subButton2">Register</div>
+        </div>
+    </body>
+</html>

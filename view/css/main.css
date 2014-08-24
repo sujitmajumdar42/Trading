@@ -1,3 +1,44 @@
-.response{
+.alert{
+    color:#555;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+    padding:10px 36px;
+    margin:10px;
+}
+.alert span{
+    font-weight:bold;
+    text-transform:uppercase;
+}
+.error{
+    background:#ffecec url('../images/icon/error.png') no-repeat 10px 50%;
+    border:1px solid #f5aca6;
+}
+.info{
+    background:#e9ffd9 url('../images/icon/success.png') no-repeat 10px 50%;
+    border:1px solid #a6ca8a;
+}
+.msg{
+    background:#e3f7fc url('../images/icon/notice.png') no-repeat 10px 50%;
+    border:1px solid #8ed9f6;
+}
+.availBox{
+    background:#e3f7fc url('../images/icon/box.png') no-repeat 10px 50%;
+    border:1px solid #a6ca8a;
+    font-size: 18px;
+    font-weight: bold
+}
+.availPac{
+    background:#e3f7fc url('../images/icon/pac.png') no-repeat 10px 50%;
+    border:1px solid #a6ca8a;
+    font-size: 18px;
+    font-weight: bold;
+}
+#response{
+    display: none;
+}
+#availibilityBox{
+    display: none;
+}
+#availibilityPac{
     display: none;
 }

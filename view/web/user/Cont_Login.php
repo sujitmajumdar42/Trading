@@ -12,7 +12,7 @@
                 <td><input type="password" id="userPass"></td>
             </tr>
             <tr>
-                <td colspan="2"><label id="loginResponse" class="response"></td>
+                <td colspan="2"><label id="loginResponse" class="response" style="display: none"></label></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Login" id="userLogin"></td>

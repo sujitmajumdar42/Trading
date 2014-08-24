@@ -8,8 +8,8 @@ class ProductAccountBO{
     function create($productTO){
         $this->productAccountDAO->create($productTO);
     }
-    function read($productID){
-         return $this->productAccountDAO->read($productID);
+    function read($productID,$prodUnit){
+         return $this->productAccountDAO->read($productID,$prodUnit);
     }
     function readAll(){
         return $this->productAccountDAO->readAll();

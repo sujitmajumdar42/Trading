@@ -3,7 +3,7 @@
     <li data-role="list-divider">Brand Management</li>
     <?php getBrandNavs(); ?>
     <li>
-         
+
         <form name="brand_management" action="./" data-ajax="false">
             <table>
                 <tr>
@@ -16,7 +16,9 @@
                 </tr>
                 <tr>
                     <td><input id="updateBrand"></td>
-                    <td id="updateResp"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
                     <td><input type="button" id ="update" value="Update"></td>

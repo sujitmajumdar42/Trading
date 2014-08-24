@@ -36,7 +36,7 @@ if (isset($_SESSION['uname'])) {
 
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">Trade Management</li>    
-    <li><a href="#"></a>Trade In</li>
+    <li><a href="index.php?cont=Cont_Trade_Add"></a>Trade In</li>
     <li><a href=""></a>Trade Out</li>
     <li><a href=""></a>View status</li>
 </ul>    

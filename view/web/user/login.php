@@ -23,7 +23,7 @@
   <form method="post" action="./" data-ajax="false">
     <table>
       <tr>
-        <td><label for="username">Username:</label>
+        <td><label for="username">Username    :</label>
           <input type="text" name="username" id="username"/></td>
       </tr>
       <tr>

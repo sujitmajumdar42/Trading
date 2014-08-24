@@ -13,7 +13,9 @@
                 <tr>
                     <td><label for="brandname">Brand Name:</label></td>
                     <td><input type="text" name="brandName" id="brandName" value=""/></td>
-                    <td id="checkBrand"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
                     <td><input type="button" value="Add Brand" class="ui-btn ui-btn-inline" id="addBrand"></td>

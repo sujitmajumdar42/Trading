@@ -21,6 +21,6 @@ class BrandBO{
         $this->brandDAO->update($brandTO);
     }
     function delete($brandID){
-        $this->brandDAO->delete($brandID);
+        return $this->brandDAO->delete($brandID);
     }
 }

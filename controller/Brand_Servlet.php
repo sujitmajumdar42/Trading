@@ -40,8 +40,9 @@ class BrandServlet {
             $this->brandTO->set_BRAND_ID($brandID);
             $this->brandTO->set_BRAND_NAME($brandName);
             $this->brandBO->create($this->brandTO);
+            echo "INF_BR_01";
         } else {
-            echo "Brand Name already Exists.";
+            echo "ERR_BR_02";
         }
     }
 
@@ -65,14 +66,20 @@ class BrandServlet {
             $this->brandTO->set_BRAND_ID($brandID);
             $this->brandTO->set_BRAND_NAME($brandName);
             $this->brandBO->update($this->brandTO);
+            echo "INF_BR_02";
         } else {
-            echo "Brand Name already Exists.";
+            echo "ERR_BR_02";
         }
     }
     
     private function delete(){
         $brandID = $_POST['brandID'];
          $this->brandTO->set_BRAND_ID($brandID);
-         $this->brandBO->delete($this->brandTO->get_BRAND_ID());
+         $respCode = $this->brandBO->delete($this->brandTO->get_BRAND_ID());
+         if($respCode==1){
+             echo "ERR_BR_05";
+         } else{
+             echo "INF_BR_03";
+         }
     }
 }

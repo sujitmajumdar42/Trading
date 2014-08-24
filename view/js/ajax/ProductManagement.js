@@ -1,10 +1,5 @@
 $(document).ready(function() {
-    $(".navs").click(function(e) {
-        e.stopImmediatePropagation();
-        e.preventDefault();
-        var path = 'http://' + window.location.hostname + window.location.pathname + $(this).attr("data-url");
-        $(location).attr('href', path);
-    });
+    $("#prodNames").selectmenu().selectmenu("disable");
     servType = "BrandManage";
     oprCode = "readAll";
     brandID = "";
@@ -33,17 +28,18 @@ $(document).ready(function() {
                         },
                         dataType: "json",
                         success: function(html) {
-                            if (html == "ERR102") {
-                                // $("#productList").html("No Products Found");
-                                $("#prodNames").attr('disabled', true);
+                            if (html == "ERR_PR_01") {
+                                prepareMessage(html);
+                                $("#prodNames").selectmenu("disable");
                             } else {
-                                $("#prodNames").attr('disabled', false);
+                                $("#response").fadeOut("slow");
+                                $("#prodNames").selectmenu("enable");
+                                $('#prodNames').empty();
+                                $("<option></option>", {value: "", text: "Select"}).appendTo('#prodNames');
+                                $("#prodNames").selectmenu("refresh", true);
                                 $.each(html, function() {
                                     $("<option></option>", {value: this.PROD_ID, text: this.PROD_NAME}).appendTo('#prodNames');
                                 });
-                                /*if (location.pathname.split('/').slice(-1)[0] == "Product_Sell.php") {
-                                 $("#prodNames").stop().attr('size', 1);
-                                 }*/
                                 $("#prodNames").stop().change(function() {
                                     prodName = $('select[id="prodNames"] option:selected').html();
                                     prodID = $('select[id="prodNames"] option:selected').val();
@@ -64,14 +60,16 @@ $(document).ready(function() {
     $("#addProd").click(function() {
         prodName = $("#prodName").val();
         prodUnit = $('select[id="prodUnitType"] option:selected').val();
-        if(prodUnit == "box"){
+        if (prodUnit == "box") {
             prodPerBox = $("#prodPerBox").val();
-        } else{
+        } else {
             prodPerBox = 0;
         }
-        if (prodName == "")
-            $("#addProdResp").html("Can't add Empty Name");
-        else {
+        if (brandID == "select") {
+            prepareMessage("ERR_PR_02");
+        } else if (isEmpty(prodName)) {
+            prepareMessage("ERR_PR_03");
+        } else {
             servType = "ProdManage";
             oprCode = "Insert";
             $.ajax({
@@ -81,21 +79,24 @@ $(document).ready(function() {
                     oprCode: oprCode,
                     brandID: brandID,
                     prodName: prodName,
-                    prodUnit:prodUnit,
-                    prodPerBox:prodPerBox
+                    prodUnit: prodUnit,
+                    prodPerBox: prodPerBox
                 },
                 success: function(html) {
-                    $("#addProdResp").html(html);
+                    prepareMessage(html);
                 }
-
             });
         }
     });
     $("#Update").click(function() {
         prodNameOld = prodName;
         prodNameNew = $("#prodName").val();
-        if (prodNameOld == prodNameNew) {
-            $("#updateProdResp").html("No Change");
+        if (isEmpty(prodNameNew)) {
+            prepareMessage("ERR_PR_03");
+        } else if (prodNameNew == prodNameOld) {
+            prepareMessage("ERR_PR_05");
+        } else if (prodNameNew == "Select") {
+            prepareMessage("ERR_PR_06");
         } else {
             servType = "ProdManage";
             oprCode = "Update";
@@ -110,11 +111,7 @@ $(document).ready(function() {
                     prodID: prodID
                 },
                 success: function(html) {
-                    if ($.isEmptyObject(html)) {
-                        $("#updateProdResp").html("Updated");
-                    } else {
-                        $("#updateProdResp").html(html);
-                    }
+                    prepareMessage(html);
                 }
             });
         }
@@ -123,26 +120,27 @@ $(document).ready(function() {
     $("#Remove").click(function() {
         servType = "ProdManage";
         oprCode = "Remove";
-        $.ajax({
-            type: "POST",
-            url: "../../../controller/Router.php",
-            data: {servType: servType,
-                oprCode: oprCode,
-                prodID: prodID
-            },
-            success: function(html) {
-                if ($.isEmptyObject(html)) {
-                    $("#updateProdResp").html("Removed");
-                } else {
-                    $("#updateProdResp").html(html);
+        prodName = $("#prodName").val();
+        if (isEmpty(prodName)) {
+            prepareMessage("ERR_PR_03");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "../../../controller/Router.php",
+                data: {servType: servType,
+                    oprCode: oprCode,
+                    prodID: prodID
+                },
+                success: function(html) {
+                    prepareMessage(html);
                 }
-            }
-        });
+            });
+        }
     });
     $("#prodUnitType").change(function() {
         if ($('select[id="prodUnitType"] option:selected').val() == "box") {
             $("#prodPerBoxRow").show();
-        } else{
+        } else {
             $("#prodPerBoxRow").hide();
         }
     });

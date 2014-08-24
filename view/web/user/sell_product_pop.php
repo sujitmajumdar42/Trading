@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td colspan="2" id="billResponse">
-            
+
         </td>
     </tr>
 </table>
@@ -47,6 +47,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td id="availibilityBox" class="alert availBox"></td>
+                    <td id="availibilityPac" class="alert availPac"></td>
+                </tr>
+                <tr>
                     <td>Select Unit </td>
                     <td>
                         <select id="selectUnit" name="select-choice-0">
@@ -56,12 +60,16 @@
                         </select>
                     </td>
                 </tr>
+
                 <tr>
                     <td>Quantity : </td>
                     <td><input type="text" id="prodQuantity"></td>
-                    <td id="QtyResp"></td>
                 </tr>
                 <tr>
+                    <td colspan="2" id="response"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
                     <td><input type="button" value="ADD" id="addProdToList"></td>
                 </tr>
             </table>

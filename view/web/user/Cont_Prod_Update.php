@@ -23,9 +23,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="prodName">Name : </label></td>
+                    <td>Name : </td>
                     <td><input type="text" id="prodName"></td>
                     <td id="updateProdResp"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
                     <td><input type="button" value="Update" class="ui-btn ui-btn-inline" id="Update"></td>

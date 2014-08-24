@@ -17,13 +17,14 @@ class DbConfig {
     }
 
     public static function queryForObject($sql, $array) {
+        $returnCode = 0;
         try {
             $statement = self::getDB()->prepare($sql);
             $statement->execute($array);
-            return $statement;
         } catch (PDOException $Exception) {
-            echo "Exception : " . $Exception->getMessage();
+            $returnCode = 1;
         }
+        return $returnCode;
     }
 
     public static function query($sql) {

@@ -3,22 +3,22 @@ $(document).ready(function() {
         brandName = $("#brandName").val();
         servType = "BrandManage";
         oprCode = "insert";
-        $.ajax({
-            type: "POST",
-            url: "../../../controller/Router.php",
-            data: "brandName=" + brandName + "&servType=" + servType + "&oprCode=" + oprCode,
-            success: function(html) {
-                if ("Brand Name already Exists." == html) {
-                    $("#checkBrand").html("Brand name Already Exist");
-                } else {
-                    $("#checkBrand").html("Added");
-                }
-            },
-            beforeSend: function()
-            {
+        if (isEmpty($("#brandName").val())) {
+            prepareMessage("ERR_BR_01");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "../../../controller/Router.php",
+                data: "brandName=" + brandName + "&servType=" + servType + "&oprCode=" + oprCode,
+                success: function(html) {
+                    prepareMessage(html);
+                },
+                beforeSend: function()
+                {
 
-            }
-        });
+                }
+            });
+        }
         return false;
     });
 });

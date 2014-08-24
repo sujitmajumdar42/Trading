@@ -14,6 +14,7 @@ $(document).ready(function() {
                 data: {servType: servType,
                     oprCode: oprCode,
                     prodID: prodID},
+                
                 success: function(html) {
                     if (html != " ") {
                         data = $.parseJSON(html);

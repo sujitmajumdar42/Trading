@@ -7,7 +7,7 @@ class ProductDAO {
     const CHECK_QUERY = "SELECT * FROM `trading`.`product` WHERE `product`.`PROD_NAME` = ? AND `product`.`BRAND_ID` = ?";
     const READ_QUERY = "SELECT * FROM `trading`.`product` WHERE `PROD_ID`=?";
     const READ_ALL_QUERY = "SELECT * FROM `trading_db`.`product`";
-    const UPDATE_QUERY = "UPDATE `trading`.`product` SET `PROD_NAME` = ?, `PROD_AVAIL` = ? WHERE `product`.`PROD_ID` = ?";
+    const UPDATE_QUERY = "UPDATE `trading`.`product` SET `PROD_NAME` = ?  WHERE `product`.`PROD_ID` = ?";
     const DELETE_QUERY = "DELETE FROM `trading`.`product` WHERE `product`.`PROD_ID` = ?";
     const READ_ALL_BY_FK = "SELECT * FROM `product` WHERE `BRAND_ID` = ?";
 
@@ -37,13 +37,13 @@ class ProductDAO {
     }
 
     function update($productTO) {
-        $params = array($productTO->get_PROD_NAME(), $productTO->get_PROD_AVAIL(), $productTO->get_PROD_ID());
+        $params = array($productTO->get_PROD_NAME(),$productTO->get_PROD_ID());
         DbConfig::queryForObject(self::UPDATE_QUERY, $params);
     }
 
     function delete($productId) {
         $params = array($productId);
-        DbConfig::queryForObject(self::DELETE_QUERY, $params);
+        return DbConfig::queryForObject(self::DELETE_QUERY, $params);
     }
 
     function readAllByFK($brandID) {

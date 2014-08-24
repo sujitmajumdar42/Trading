@@ -36,7 +36,7 @@ class BrandDAO {
 
     function delete($brandID) {
         $params = array($brandID);
-        DbConfig::queryForObject(self::DELETE_QUERY, $params);
+        return DbConfig::queryForObject(self::DELETE_QUERY, $params);
     }
 
 }

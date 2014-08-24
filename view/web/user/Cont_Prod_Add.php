@@ -18,7 +18,6 @@
                     <td>Available Products </td>
                     <td id="productList">
                         <select id="prodNames" name="select-choice-0">
-                            <option value="select">Select</option>
                         </select>   
                     </td>
                 </tr>
@@ -30,7 +29,6 @@
                     <td>Select Unit : </td>
                     <td>
                         <select id="prodUnitType">
-                            <option value="select">Select</option>
                             <option value="pac">Packet</option>
                             <option value="box">Box</option>
                         </select>
@@ -39,6 +37,9 @@
                 <tr id="prodPerBoxRow" style="display: none">
                     <td>Products Per Box : </td>
                     <td><input type="text" id="prodPerBox"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
                     <td colspan="2" id="addProdResp"></td>
