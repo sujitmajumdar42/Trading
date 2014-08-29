@@ -17,7 +17,7 @@ $(document).ready(function() {
             url: "../../../controller/Router.php",
             data: {servType: servType,
                 oprCode: oprCode,
-                prodID: prodID,
+                prodID: prodID
             },
             success: function(html) {
                 if ($.isNumeric(html)) {
@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#addProdToList').click(function() {
 
         servType = "ProdManage";
-        oprCode = "readCost";
+        oprCode = "updateProdToRepo";
         prodNo = prod_table_size;
         brandID = $('select[id="selectBrand"] option:selected').val();
         brandName = $('select[id="selectBrand"] option:selected').html();
@@ -74,7 +74,9 @@ $(document).ready(function() {
                 data: {servType: servType,
                     oprCode: oprCode,
                     prodID: prodID,
-                    unit: unit
+                    unit: unit,
+                    type: "REMOVE",
+                    quantity: quantity
                 },
                 success: function(html) {
                     cost = $.parseJSON(html);
@@ -104,6 +106,10 @@ $(document).ready(function() {
                     setTimeout(function() {
                     }, 4000);
                     $("#response").fadeOut("slow");
+                    $("#prodNames").selectmenu("refresh", true);
+                },
+                beforeSend : function(){
+                    $("#prodNames").selectmenu("refresh", true);
                 }
             });
         }
@@ -117,31 +123,28 @@ $(document).ready(function() {
             $("#totalProducts").val(total_prod);
             $(this).closest('tr').remove();
             prod_table_size--;
-
-            oprCode = "updateRepo";
+            oprCode = "updateProdToRepo";
             prodID = $(this).closest('tr').find('td:eq(2)').attr('data');
             prodUnit = $(this).closest('tr').find('td:eq(2)').text().toLowerCase();
-            prodAvail = $(this).closest('tr').find('td:eq(3)').text();
-            updateRepo(prodID, prodUnit, prodAvail);
+            quantity = $(this).closest('tr').find('td:eq(3)').text();
+            $.ajax({
+                type: "POST",
+                url: "../../../controller/Router.php",
+                data: {servType: servType,
+                    oprCode: oprCode,
+                    prodID: prodID,
+                    unit: unit,
+                    type: "ADD",
+                    quantity: quantity
+                },
+                success: function(html) {
+                    
+                }
+
+            });
         }
         return false;
     });
-    function updateRepo(prodID, prodUnit, prodAvail) {
-        $.ajax({
-            type: "POST",
-            url: "../../../controller/Router.php",
-            data: {servType: "ProdManage",
-                oprCode: "updateRepo",
-                prodID: prodID,
-                prodUnit: prodUnit,
-                prodAvail: prodAvail
-            },
-            success: function(html){
-                
-            }
-        });
-
-    }
     $("#submitTrans").click(function() {
         var table = $("#prod_table_body");
         custAddress = $("#cust_address").val();

@@ -57,7 +57,7 @@ class RcptCreator {
         $rcptID = AimsUtility::getID();
         $objWriter->save('Receipts/'.$rcptID.'.xlsx');
         echo $rcptID;
-        $rcptDAO = new RcptDetail();
+        $rcptDAO = new RcptDetailDAO();
         $rcptDAO->create($rcptID, $totalCosts);
     }
 

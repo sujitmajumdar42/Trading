@@ -42,9 +42,6 @@
                     <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" id="addProdResp"></td>
-                </tr>
-                <tr>
                     <td><input type="button" value="Add Product" class="ui-btn ui-btn-inline" id="addProd"></td>
                 </tr>
             </table>

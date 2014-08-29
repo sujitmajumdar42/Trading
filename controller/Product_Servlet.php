@@ -55,6 +55,9 @@ class ProductServlet {
                 break;
             case "updateRepo":
                 break;
+            case "updateProdToRepo":
+                $this->updateProdToRepo();
+                break;
         }
     }
 
@@ -76,19 +79,16 @@ class ProductServlet {
             //Add to account
             $prodAccountTO = new ProdAccountTO();
             $prodAccountTO->set_PROD_ID($prodID);
-            $prodAccountTO->set_PROD_UNIT($prodUnit);
+            $prodAccountTO->set_PROD_PAC_COST(0);
+            $prodAccountTO->set_DISCOUNT(0);
+            $prodAccountTO->set_VAT(0);
+            $prodAccountBO = new ProductAccountBO();
             if ($prodUnit == "pac") {
                 $prodAccountTO->set_PROD_BOX_COST(-1);
             } else {
                 $prodAccountTO->set_PROD_BOX_COST(0);
             }
-            $prodAccountTO->set_PROD_PAC_COST(0);
-            $prodAccountTO->set_DISCOUNT(0);
-            $prodAccountTO->set_VAT(0);
-
-            $prodAccountBO = new ProductAccountBO();
             $prodAccountBO->create($prodAccountTO);
-
             //Add to Repo
             $prodRepoTO = new ProdRepoTO();
             $prodRepoTO->set_PROD_ID($prodID);
@@ -171,8 +171,12 @@ class ProductServlet {
 
     private function readCost() {
         $prodID = $_POST['prodID'];
-        $prodUnit = $_POST['unit'];
-        echo json_encode($this->prodAccountBO->read($prodID, $prodUnit));
+        if($this->prodAccountBO->read($prodID)!=false){
+            echo json_encode($this->prodAccountBO->read($prodID));
+        } else{
+            echo "ERR_PR_12";
+        }
+        
     }
 
     private function updateCost() {
@@ -185,8 +189,12 @@ class ProductServlet {
         $this->prodAccountTO->set_PROD_BOX_COST($costPerBox);
         $this->prodAccountTO->set_VAT($vat);
         $this->prodAccountTO->set_DISCOUNT(0);
-        var_dump($this->prodAccountTO);
-        $this->prodAccountBO->update($this->prodAccountTO);
+        $response =  $this->prodAccountBO->update($this->prodAccountTO);
+        if($response==0){
+            echo "INF_PR_05";
+        } else{
+            echo "ERR_PR_13";
+        }
     }
 
     private function checkAvail() {
@@ -214,4 +222,15 @@ class ProductServlet {
         $this->prodBO->updateRepo($prodRepoTO);
     }
 
+    private function updateProdToRepo() {
+        $prodID = $_POST['prodID'];
+        $prodUnit = $_POST['unit'];
+        $quantity = $_POST['quantity'];
+        $type = $_POST['type'];
+        if($type == "REMOVE"){
+            echo json_encode($this->prodAccountBO->read($prodID));
+        }
+        $this->prodBO->updateToRepo($prodID, $prodUnit, $quantity, $type);
+        
+    }
 }

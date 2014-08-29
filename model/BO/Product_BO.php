@@ -54,7 +54,15 @@ class ProductBO{
         $this->prodRepoDAO->update($prodRepoTO);
     }
     
+    function removeRepo($productId,$prodUnit){
+        $this->prodRepoDAO->delete($productId,$prodUnit);
+    }
+    
     function checkAvail($productID, $prodUnit){
         return $this->prodRepoDAO->checkRepo($productID, $prodUnit);
+    }
+    
+    function updateToRepo($prodID, $prodUnit, $quantity, $type){
+        return $this->prodRepoDAO->updateToRepo($prodID, $prodUnit, $quantity, $type);
     }
 }

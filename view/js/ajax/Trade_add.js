@@ -29,12 +29,14 @@ $(document).ready(function() {
         row.fadeIn('slow');
         trade_table_size++;  
         rowIndex++;
+        prepareMessage("INF_PR_06");
     });
     $(document).on('click', '#remProd', function() {
         if (trade_table_size > 1) {
             $(this).closest('tr').fadeOut();
             prodID.splice(parseInt($(this).closest('tr').find('td:eq(0)').text())-1,1);
             trade_table_size--;
+            prepareMessage("INF_PR_07");
         }
         return false;
     });
@@ -52,7 +54,7 @@ $(document).ready(function() {
                 prodQty:prodQty
             },
             success:function(html){
-               $("#tradeResponse").html(html);
+                prepareMessage(html);
             }
         });
     });

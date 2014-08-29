@@ -77,7 +77,12 @@ class TradeServlet {
             $this->prodRepoTO->set_PROD_ID($prodIDs[$index]);
             $this->prodRepoTO->set_PROD_UNIT($prodUnits[$index]);
             $this->prodRepoTO->set_PROD_AVAIL($prodQty[$index]);
-            $this->prodBO->updateRepo($this->prodRepoTO);
+            $response = $this->prodBO->updateToRepo($prodIDs[$index], $prodUnits[$index], $prodQty[$index], "ADD");
+            if($response==0){
+                echo "INF_PR_08";
+            } else{
+                echo "ERR_PR_14";
+            }
         }
     }
 

@@ -23,9 +23,6 @@
                         </select>   
                     </td>
                 </tr>
-                <tr >
-                    <td colspan="2" style="display: none" id="costResponse"></td>
-                </tr>
                 <tr>
                     <td>Cost per piece </td>
                     <td><input type="text" id="costPerPiece"></td>
@@ -37,6 +34,9 @@
                 <tr>
                     <td>VAT</td>
                     <td><input type="text" id="vat"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="response"></td>
                 </tr>
                 <tr>
                     <td><input type="button" value="Update" class="ui-btn ui-btn-inline" id="updateCost"></td>

@@ -8,6 +8,7 @@ class ProdRepoDAO {
     const UPDATE_QUERY = "UPDATE PROD_REPO SET PROD_AVAIL = ? WHERE PROD_ID = ? AND PROD_UNIT = ?";
     const CHECK_REPO_QUERY = "SELECT PROD_AVAIL FROM PROD_REPO WHERE PROD_ID = ? AND PROD_UNIT = ?";
     const DELETE_QUERY = "DELETE FROM PROD_REPO WHERE PROD_ID = ?";
+     
     function create($prodRepoTO) {
         $params = array($prodRepoTO->get_PROD_ID(), $prodRepoTO->get_PROD_UNIT(), $prodRepoTO->get_PROD_AVAIL());
         DbConfig::queryForObject(self::CREATE_QUERY, $params);
@@ -31,6 +32,20 @@ class ProdRepoDAO {
     function delete($productId) {
         $params = array($productId);
         DbConfig::queryForObject(self::DELETE_QUERY, $params);
+    }
+    
+    function updateToRepo($prodID, $prodUnit,$quantity,$type){
+        $prodAvail = $this->checkRepo($prodID, $prodUnit)->get_PROD_AVAIL();
+        if($type == "ADD"){
+            $prodAvail += $quantity;
+        } else { 
+            $prodAvail -= $quantity;
+        }
+        $prodRepoTO = new ProdRepoTO();
+        $prodRepoTO->set_PROD_AVAIL($prodAvail);
+        $prodRepoTO->set_PROD_ID($prodID);
+        $prodRepoTO->set_PROD_UNIT($prodUnit);
+        $this->update($prodRepoTO);
     }
 
 }

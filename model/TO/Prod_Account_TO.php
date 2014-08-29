@@ -3,7 +3,6 @@
 class ProdAccountTO {
 
     public $PROD_ID;
-    public $PROD_UNIT;
     public $PROD_BOX_COST;
     public $PROD_PAC_COST;
     public $VAT;
@@ -11,10 +10,6 @@ class ProdAccountTO {
     
     public function get_PROD_ID() {
         return $this->PROD_ID;
-    }
-
-    public function get_PROD_UNIT() {
-        return $this->PROD_UNIT;
     }
 
     public function get_PROD_BOX_COST() {
@@ -35,10 +30,6 @@ class ProdAccountTO {
 
     public function set_PROD_ID($PROD_ID) {
         $this->PROD_ID = $PROD_ID;
-    }
-
-    public function set_PROD_UNIT($PROD_UNIT) {
-        $this->PROD_UNIT = $PROD_UNIT;
     }
 
     public function set_PROD_BOX_COST($PROD_BOX_COST) {

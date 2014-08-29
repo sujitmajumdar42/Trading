@@ -14,20 +14,26 @@ $(document).ready(function() {
                 prodID: prodID
             },
             success: function(html) {
-                prodCostObj = $.parseJSON(html);
-                if (prodCostObj.PROD_BOX_COST != "-1") {
-                    $("#costPerBoxContainer").show();
-                    $("#costPerBox").val(prodCostObj.PROD_BOX_COST);
+                if (html == "ERR_PR_12") {
+                    prepareMessage(html);
+                    $("#costPerPiece").val(0);
+                    $("#costPerBox").val(0);
+                    $("#vat").val(0);
                 } else {
-                    $("#costPerBoxContainer").hide();
+                    prodCostObj = $.parseJSON(html);
+                    if (prodCostObj.PROD_BOX_COST != "-1") {
+                        $("#costPerBoxContainer").fadeIn("slow");
+                        $("#costPerBox").val(prodCostObj.PROD_BOX_COST);
+                    } else {
+                        $("#costPerBoxContainer").fadeOut("slow");
+                    }
+                    $("#costPerPiece").val(prodCostObj.PROD_PAC_COST);
+                    $("#vat").val(prodCostObj.VAT);
                 }
-                $("#costPerPiece").val(prodCostObj.PROD_PAC_COST);
-                $("#vat").val(prodCostObj.VAT);
             }
         });
     });
     $("#updateCost").click(function() {
-        alert($("#costPerBox").is(":visible"));
         servType = "ProdManage";
         oprCode = "updateCost";
         brandID = $('select[id="selectBrand"] option:selected').val();
@@ -50,14 +56,8 @@ $(document).ready(function() {
                 costPerBox: costPerBox,
                 vat: vat
             },
-            success : function(html){
-                if(html == ""){
-                    $("#costResponse").show();
-                    $("#costResponse").html("Successfully updated");
-                }else{
-                $("#costResponse").show();
-                    $("#costResponse").html(html);
-                }
+            success: function(html) {
+                prepareMessage(html);
             }
         });
     });

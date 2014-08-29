@@ -17,7 +17,6 @@ class TradeDetailDAO {
             $tradeDetailTO->get_PROD_QTY()
         );
         DbConfig::queryForObject(self::CREATE_QUERY, $params);
-        var_dump($tradeDetailTO);
     }
 
     function read($brandId) {
