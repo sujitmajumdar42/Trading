@@ -1,5 +1,5 @@
 <?php
-
+session_start();
  require_once '../model/BO/User_BO.php';
  require_once '../model/DAO/User_DAO.php';
  require_once '../model/TO/User_TO.php';
@@ -31,8 +31,7 @@ class UserServlet{
              echo "ERR100";
          }
          else{
-             session_start();
-             $_SESSION['uname']="Amit";
+             $_SESSION['uname']=$uname;
          }
      }
 }

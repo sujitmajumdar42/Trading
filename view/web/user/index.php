@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php require_once("./Navigators.php"); ?>
+<?php session_start(); ?>
 <html>
     <head>
         <title>ASIM</title>

@@ -16,7 +16,7 @@ class ProductDAO {
             $productTO->get_BRAND_ID(),
             $productTO->get_PROD_NAME(),
             $productTO->get_PROD_UNIT(),
-            $productTO->get_PRODS_PER_BOX(),
+            $productTO->get_PROD_IN_BOX(),
         );
         
         DbConfig::queryForObject(self::CREATE_QUERY, $params);
@@ -29,7 +29,7 @@ class ProductDAO {
 
     function read($productId) {
         $params = array($productId);
-        return DbConfig::readQuery(self::READ_QUERY, $params, self::CLASS_NAME);
+                return DbConfig::readQuery(self::READ_QUERY, $params, self::CLASS_NAME);
     }
 
     function readAll() {

@@ -58,6 +58,9 @@ class ProductServlet {
             case "updateProdToRepo":
                 $this->updateProdToRepo();
                 break;
+            case "getProdInfo":
+                $this->getProdInfo();
+                break;
         }
     }
 
@@ -73,7 +76,7 @@ class ProductServlet {
             $this->prodTO->set_PROD_ID($prodID);
             $this->prodTO->set_PROD_NAME($prodName);
             $this->prodTO->set_PROD_UNIT($prodUnit);
-            $this->prodTO->set_PRODS_PER_BOX($prodPerBox);
+            $this->prodTO->set_PROD_IN_BOX($prodPerBox);
             $this->prodBO->create($this->prodTO);
 
             //Add to account
@@ -232,5 +235,12 @@ class ProductServlet {
         }
         $this->prodBO->updateToRepo($prodID, $prodUnit, $quantity, $type);
         
+    }
+    
+    private function getProdInfo(){
+        $prodID = $_POST['prodID'];
+        $json[] = array();
+        $json = json_encode($this->prodBO->read($prodID));
+        echo $json;
     }
 }

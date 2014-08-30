@@ -5,9 +5,6 @@
    <li data-role="list-divider">Product Management</li>
     <?php getProductNavs(); ?>
    <li>
-       <span id="transaction_resp" style="color: indianred;display: none"></span>
-   </li> 
-   <li>
         <table>
             <tr>
                 <td>Total Product</td>

@@ -20,6 +20,7 @@ message["ERR_PR_11"] = "Insufficent quantity in store.";
 message["ERR_PR_12"] = "Sorry,Can't retrieve account information.";
 message["ERR_PR_13"] = "Sorry,Cost can't be updated.";
 message["ERR_PR_14"] = "Queue can't be processed.";
+message["ERR_PR_15"] = "All boxes has opened."; 
 
 message["MSG_COM_01"] = "Updating inventory.Please wait.";
 
@@ -35,6 +36,7 @@ message["INF_PR_05"] = "Product Cost is updated successfully.";
 message["INF_PR_06"] = "Product added to Queue";
 message["INF_PR_07"] = "Product removed from Queue";
 message["INF_PR_08"] = "Trade queue has processed successfully.";
+message["INF_PR_09"] = "Box has opened and pieces are added to list.";
 function getMessage(msgCode) {
     return message[msgCode];
 }

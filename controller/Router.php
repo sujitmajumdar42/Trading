@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once './User_Servlet.php';
 require_once './Brand_Servlet.php';
 require_once './Product_Servlet.php';
@@ -14,7 +14,6 @@ class Router {
 
     public function route() {
         $servType = $_POST['servType'];
-
         switch ($servType) {
             case 'UsrLogin' :
                 $obj = new UserServlet();
@@ -49,6 +48,8 @@ class Router {
     
     function logout(){
         unset($_SESSION['uname']);
+        session_destroy();
+        //$_SESSION = array();
     }
 
 }
